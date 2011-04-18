@@ -1,14 +1,5 @@
 = loghacks - custom logging package for django =
 
-This is a virtualenv dependancy system for mercurial repository. 
-
-Store a config file with a list of python dependancies in the
-repository and then use veh to run a shell with the appropriate venv,
-etc..
-
-
-== Usage ==
-
 A custom logging package that provides extra logging functionality.
 
 The idea of this module is to make Django logging (specifically) much easier.
@@ -16,6 +7,9 @@ The idea of this module is to make Django logging (specifically) much easier.
 It detects if we have a controlling terminal and in the event of a 
 non-controlling terminal, SyslogHandler is used, else one of the 
 default handlers - usually StreamHandler is used.
+
+== Usage ==
+
 
 {{{
 # in django project settings.py
