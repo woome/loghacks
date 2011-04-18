@@ -8,7 +8,7 @@ in the event of a non controlling terminal, SyslogHandler is used, else one
 of the default handlers - usually StreamHandler is used.
 """
 
-__version__ = "0.01"
+__version__ = "0.02"
 
 import logging
 import logging.handlers
