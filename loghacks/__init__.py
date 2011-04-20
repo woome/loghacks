@@ -8,36 +8,16 @@ in the event of a non controlling terminal, SyslogHandler is used, else one
 of the default handlers - usually StreamHandler is used.
 """
 
-__version__ = "0.02"
+__version__ = "0.03"
+
+__all__ = ['StreamLoggingHandler']
+from handlers import StreamLoggingHandler
 
 import logging
 import logging.handlers
-import sys, os, re
 
 DEFAULT_LOGGING_SPEC = "%(name)s:%(levelname)s:%(lineno)d:%(message)s"
 DEFAULT_LOGGING_HANDLER_NAME = "streamlogging"
-
-class StreamLoggingHandler(logging.StreamHandler):
-    """A new stream logging handler that fixed problems with pythons default.
-
-    On close the handler catches exceptions with clean up so as not to cause
-    fatal messages about the underlying stream having gone away.
-    """
-
-    def __init__(self, *args):
-        logging.StreamHandler.__init__(self, *args)
-    
-    def flush(self):
-        try:
-            logging.StreamHandler.flush(self)
-        except Exception:
-            print >>sys.stderr, "an error occured closing up the stream handler"
-
-    def close(self):
-        try:
-            logging.StreamHandler.flush(self)
-        except Exception:
-            print >>sys.stderr, "an error occured closing up the stream handler"
 
 # Initialize the handler in the default list
 logging.handlers.StreamLoggingHandler = StreamLoggingHandler
@@ -52,6 +32,7 @@ def handler_chooser(envvar_prefix, make_default=False):
     if make_default is set true then we auto insert this into the standard logger.
     """
 
+    import os, re, sys
     # Make a dict to search for our handler in
     handlers = dict([(name.lower(),name) \
                         for name in logging.handlers.__dict__.keys() \
@@ -84,7 +65,6 @@ def handler_chooser(envvar_prefix, make_default=False):
             root_logger.addHandler(lh)
 
         return lh
-
 
 if __name__ == "__main__":
     handler_chooser("DJANGO_", make_default=True)    
