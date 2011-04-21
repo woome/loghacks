@@ -20,8 +20,8 @@ setup(
     author = "Otu Ekanem",
     author_email = "io2@woome.com",
     url = "http://github.com/woome/loghacks",
-    download_url="http://github.com/woome/loghacks/downloads",
+    download_url = "http://github.com/woome/loghacks/tarball/master",
     platforms = ["any"],
-    packages=['loghacks'],
+    packages = ['loghacks'],
     classifiers =  classifiers,
     )
