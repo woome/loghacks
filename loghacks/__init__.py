@@ -8,7 +8,7 @@ in the event of a non controlling terminal, SyslogHandler is used, else one
 of the default handlers - usually StreamHandler is used.
 """
 
-__version__ = "0.03"
+__version__ = "0.04"
 
 __all__ = ['StreamLoggingHandler']
 from handlers import StreamLoggingHandler
@@ -40,11 +40,10 @@ def handler_chooser(envvar_prefix, make_default=False):
 
     # Make the handler if we can
     if os.isatty(sys.stdout.fileno()):
-        handler_name = os.getenv(
-            envvar_prefix + "LOGGING_HANDLER", 
-            DEFAULT_LOGGING_HANDLER_NAME)
+        handler_name = os.getenv(envvar_prefix + "LOGGING_HANDLER", 
+                                 DEFAULT_LOGGING_HANDLER_NAME)
     else:
-        handler_name = 'SysLog'
+        handler_name = os.getenv(envvar_prefix + "LOGGING_HANDLER", 'SysLog')
     try:
         logginghandler = eval("logging.handlers.%s" % (
                 handlers.get("%shandler" % handler_name.lower())))
